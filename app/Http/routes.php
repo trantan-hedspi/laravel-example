@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'HomeController@index');
 
 
 Route::controllers([
@@ -27,13 +27,8 @@ Route::get('/post/index', 'PostController@index');
  * Add new post
  */
 Route::get('/post/add', 'PostController@add');
-/**
- *
- */
-Route::get('/post/facebook','PostController@getFacebookApi');
 
 Route::get('/user/login','UserController@login');
 
 Route::get('/user/loginFacebook', 'UserController@loginWithFacebook');
-
-Route::get('/user/callBackFacebook', 'UserController@callBackFacebook');
+Route::get('/user/callbackFacebook', 'UserController@callbackFacebook');

@@ -4,18 +4,15 @@ namespace App\Utils;
 
 class Config
 {
-    protected $parserUtils;
-
     public function __construct()
     {
-        $this->parserUtils = new ParserUtils();
     }
 
-    public function readConfig($config)
+    public static function readConfig($config)
     {
         $parts = explode(".", $config);
         $file_name = $parts[0];
-        $file_contents = $this->readYamlFile($file_name);
+        $file_contents = Config::readYamlFile($file_name);
         unset($parts[0]);
 
         $result = $file_contents;
@@ -26,10 +23,11 @@ class Config
         return $result;
     }
 
-    public function readYamlFile($filename)
+    public static function readYamlFile($filename)
     {
+        $parserUtils = new ParserUtils();
         $file_content = file_get_contents(app_path() . "/config/{$filename}.yml");
 
-        return $this->parserUtils->parserYaml($file_content);
+        return $parserUtils->parserYaml($file_content);
     }
 }

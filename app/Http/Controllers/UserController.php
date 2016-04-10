@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\User;
 use App\Utils\FacebookClient;
 use App\Utils\Config;
@@ -19,33 +20,45 @@ class UserController extends Controller {
 
     public function loginWithFacebook() {
         session_start();
-        $config = new Config();
-        $appId = $config->readConfig('app.Facebook.AppId');
-        $appSecret = $config->readConfig('app.Facebook.AppSecret');
+        $appId = Config::readConfig('app.Facebook.AppId');
+        $appSecret = Config::readConfig('app.Facebook.AppSecret');
+        $facebook = new FacebookClient($appId, $appSecret);
+
+        $permissions = ['email'];
+        $loginUrl = $facebook->getLoginUrl('http://laravel.example.com/user/callbackFacebook', $permissions);
+        return redirect($loginUrl);
+
+    }
+
+    public function callbackFacebook(LoginRequest $request){
+//        session_start();
+        $appId = Config::readConfig('app.Facebook.AppId');
+        $appSecret = Config::readConfig('app.Facebook.AppSecret');
         $facebook = new FacebookClient($appId, $appSecret);
 
         $accessToken = $facebook->getAccessToken();
+
         if ($accessToken) {
-            $_SESSION['user'] = $accessToken;
             $facebook->setAccessToken($accessToken);
             $userInfo = $facebook->getUser();
             $userInfo['password'] = '123456';
             $userInfo['access_token'] = $accessToken;
+//            $_SESSION['user'] = $userInfo['facebook_uid'];
+            $request->session()->put('user',$userInfo['facebook_uid']);
 
             $user = $this->checkFbUserExists($userInfo['facebook_uid']);
             if($user){
-                return view('home');
+                return redirect('/');
             }else{
-            $this->saveUser($userInfo);
-                return view('home');
+                $this->saveUser($userInfo);
+                return redirect('/');
             }
-        } else {
-            $permissions = ['email'];
-            $loginUrl = $facebook->getLoginUrl('http://laravel.example.com/user/loginFacebook', $permissions);
-
-            return redirect($loginUrl);
+        }else{
+            return redirect("/");
         }
     }
+
+
 
     public function saveUser($userInfo) {
         $user = new User();
