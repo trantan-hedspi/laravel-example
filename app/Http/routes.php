@@ -31,4 +31,7 @@ Route::get('/post/add', 'PostController@add');
 Route::get('/user/login','UserController@login');
 
 Route::get('/user/loginFacebook', 'UserController@loginWithFacebook');
+
 Route::get('/user/callbackFacebook', 'UserController@callbackFacebook');
+
+Route::get('/user/logout', 'UserController@logout');

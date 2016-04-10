@@ -13,5 +13,6 @@ namespace App\Http\Requests;
 class LoginRequest extends Request {
 
     public function rules(){
+        return array();
     }
 }

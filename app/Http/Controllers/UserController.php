@@ -8,10 +8,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
 use App\User;
 use App\Utils\FacebookClient;
 use App\Utils\Config;
+use Illuminate\Http\Request;
 
 class UserController extends Controller {
     public function login() {
@@ -30,8 +30,8 @@ class UserController extends Controller {
 
     }
 
-    public function callbackFacebook(LoginRequest $request){
-//        session_start();
+    public function callbackFacebook(Request $request){
+        session_start();
         $appId = Config::readConfig('app.Facebook.AppId');
         $appSecret = Config::readConfig('app.Facebook.AppSecret');
         $facebook = new FacebookClient($appId, $appSecret);
@@ -58,7 +58,15 @@ class UserController extends Controller {
         }
     }
 
+    public function logout(Request $request){
+        if($request->session()->has('user')){
+            $request->session()->clear();
+        }
+        session_start();
+        session_destroy();
 
+        return redirect("/");
+    }
 
     public function saveUser($userInfo) {
         $user = new User();

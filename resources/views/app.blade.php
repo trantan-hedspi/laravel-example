@@ -44,7 +44,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello<span
                                 class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
+                        <li><a href="{{ url('/user/logout') }}">Logout</a></li>
                     </ul>
                 </li>
                 @else
