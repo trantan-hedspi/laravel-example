@@ -43,7 +43,6 @@ class UserController extends Controller {
             $userInfo = $facebook->getUser();
             $userInfo['password'] = '123456';
             $userInfo['access_token'] = $accessToken;
-//            $_SESSION['user'] = $userInfo['facebook_uid'];
             $request->session()->put('user',$userInfo['facebook_uid']);
 
             $user = $this->checkFbUserExists($userInfo['facebook_uid']);
@@ -83,5 +82,9 @@ class UserController extends Controller {
         $user = User::where('facebook_uid',$facebook_uid)->first();
 
         return $user->id;
+    }
+
+    public function getUserById($id){
+        return User::where('id',$id)->first();
     }
 }

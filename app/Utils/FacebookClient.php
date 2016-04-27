@@ -50,4 +50,8 @@ class FacebookClient {
 
         return $userInfo;
     }
+
+    public function getFacebookPagePosts($page_id, $params = array()){
+        return $this->facebook->sendRequest('GET',"/{$page_id}/posts", $params);
+    }
 }

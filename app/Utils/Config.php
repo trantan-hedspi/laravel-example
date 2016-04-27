@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Utils;
 
 class Config
@@ -11,9 +10,8 @@ class Config
     public static function readConfig($config)
     {
         $parts = explode(".", $config);
-        $file_name = $parts[0];
+        $file_name = array_shift($parts);
         $file_contents = Config::readYamlFile($file_name);
-        unset($parts[0]);
 
         $result = $file_contents;
         foreach ($parts as $part) {

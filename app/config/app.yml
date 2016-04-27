@@ -1,3 +1,5 @@
 Facebook:
-    AppId: 947858151951640
-    AppSecret: 2ae9fcd9963f371d77ddf07706dc7ae8
+  AppId: 947858151951640
+  AppSecret: 2ae9fcd9963f371d77ddf07706dc7ae8
+CrawlerUser:
+  UserId: 1

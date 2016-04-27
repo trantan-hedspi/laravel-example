@@ -23,11 +23,6 @@ Route::controllers([
  */
 Route::get('/post/index', 'PostController@index');
 
-/**
- * Add new post
- */
-Route::get('/post/add', 'PostController@add');
-
 Route::get('/user/login','UserController@login');
 
 Route::get('/user/loginFacebook', 'UserController@loginWithFacebook');
