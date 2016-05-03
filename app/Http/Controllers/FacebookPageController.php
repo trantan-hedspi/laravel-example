@@ -13,6 +13,6 @@ use App\FacebookPage;
 class FacebookPageController extends Controller {
 
     public function getAllFacebookPages(){
-        return FacebookPage::all(array('page_id'));
+        return FacebookPage::all();
     }
 }

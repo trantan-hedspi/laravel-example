@@ -2,6 +2,7 @@
 namespace App\Batch\Base;
 
 use App\Utils\Log4Php;
+use PhpSpec\Exception\Exception;
 
 abstract class CrawlerBatchBase {
 

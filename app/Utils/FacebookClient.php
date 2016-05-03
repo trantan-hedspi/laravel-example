@@ -51,7 +51,9 @@ class FacebookClient {
         return $userInfo;
     }
 
-    public function getFacebookPagePosts($page_id, $params = array()){
-        return $this->facebook->sendRequest('GET',"/{$page_id}/posts", $params);
+    public function getByFacebookApi($request, $params = array()){
+        $response =  $this->facebook->sendRequest('GET',$request, $params);
+        $response->decodeBody();
+        return $response->getDecodedBody();
     }
 }
